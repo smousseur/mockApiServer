@@ -1,0 +1,12 @@
+{
+    "Contract": {
+        "id": {
+            "faker.string.alphanumeric": {
+                "length": { "min": 5, "max": 10 }
+            } 
+        },
+        "type": {
+            "faker.helpers.arrayElements": [["SHORT TERM", "LONG TERM"], 1]
+        }
+    }
+}

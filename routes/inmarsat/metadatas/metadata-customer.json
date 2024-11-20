@@ -1,0 +1,27 @@
+{
+    "Address": {
+        "id": {
+            "faker.string.alphanumeric": {
+                "length": { "min": 5, "max": 10 }
+            } 
+        },
+        "city": "faker.location.city",
+        "addressLine1": "faker.location.streetAddress",
+        "addressLine2": "faker.location.streetAddress",
+        "addressLine3": "faker.location.streetAddress",
+        "country": "faker.location.country",
+        "isoCountryCode": "faker.location.countryCode",
+        "postalCode": "faker.location.zipCode",
+        "postalCodeExt": "faker.location.zipCode"
+    },
+    "Account": {
+        "accountNumber": "faker.finance.accountNumber",
+        "name": "faker.finance.accountName",
+        "paymentMethod": "faker.finance.transactionType",
+        "paymentTerms": "faker.finance.transactionDescription"
+    },
+    "ShippingDetails": {
+        "address": "faker.location.streetAddress",
+        "contact": "faker.internet.email"
+    }
+}

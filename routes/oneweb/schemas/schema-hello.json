@@ -1,0 +1,267 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Hello OneWeb API",
+    "description": "API to confirm access & SLA tier",
+    "version": "1.0"
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/oneweb": {
+      "get": {
+        "operationId": "Client Access",
+        "description": "Confirms Client Access",
+        "tags": ["Hello"],    
+        "responses": {
+          "200": {
+            "description": "",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "example": {
+                "message": "“Hello from OneWeb”"
+              }
+            }
+          },
+          "400": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          },
+          "401": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          },
+          "404": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          },
+          "405": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          },
+          "406": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          },
+          "408": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          },
+          "415": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          },
+          "500": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          },
+          "501": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          }
+        ]
+      }
+    },
+    "/oneweb/world": {
+      "get": {
+        "operationId": "Client SLA Information",
+        "description": "Provides SLA information in the header",
+        "tags": ["Hello"],    
+        "responses": {
+          "200": {
+            "description": "",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "example": {
+                "message": "“Hello World from OneWeb”"
+              }
+            }
+          },
+          "400": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          },
+          "401": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          },
+          "404": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          },
+          "405": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          },
+          "406": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          },
+          "408": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          },
+          "415": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          },
+          "500": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          },
+          "501": {
+            "description": "null",
+            "x-amf-mediaType": "application/json",
+            "schema": {
+              "$ref": "#/definitions/type"
+            }
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "type": {
+      "title": "Exteral Error Response",
+      "description": "External Error Response Structure",
+      "x-amf-examples": {
+        "example_11": {
+          "code": "DOMAIN-T-404",
+          "reason": "NOT_FOUND",
+          "message": "Resource Not Found",
+          "transactionId": "12d0133f-b4f6-400b-9dcd-5f3dd0e09220"
+        },
+        "example_15": {
+          "code": "DOMAIN-T-415",
+          "reason": "UNSUPPORTED_MEDIA_TYPE",
+          "message": "Invalid Media Type",
+          "transactionId": "12d0133f-b4f6-400b-9dcd-5f3dd0e09220"
+        },
+        "example_14": {
+          "code": "DOMAIN-T-408",
+          "reason": "TIME_OUT",
+          "message": "Request Timed Out",
+          "transactionId": "12d0133f-b4f6-400b-9dcd-5f3dd0e09220"
+        },
+        "example_16": {
+          "code": "DOMAIN-T-500",
+          "reason": "INTERNAL SERVER ERROR",
+          "message": "Server Error",
+          "transactionId": "12d0133f-b4f6-400b-9dcd-5f3dd0e09220"
+        },
+        "example_9": {
+          "code": "DOMAIN-T-400",
+          "reason": "BAD_REQUEST",
+          "message": "Required Header Client Secret not specified",
+          "transactionId": "12d0133f-b4f6-400b-9dcd-5f3dd0e09220"
+        },
+        "example_13": {
+          "code": "DOMAIN-T-406",
+          "reason": "NOT ACCEPTABLE",
+          "message": "Invalid Operation",
+          "transactionId": "12d0133f-b4f6-400b-9dcd-5f3dd0e09220"
+        },
+        "example_10": {
+          "code": "DOMAIN-T-401",
+          "reason": "UNAUTHORIZED_ACCESS",
+          "message": "Invalid User Id or Password",
+          "transactionId": "12d0133f-b4f6-400b-9dcd-5f3dd0e09220"
+        },
+        "example_12": {
+          "code": "DOMAIN-T-405",
+          "reason": "METHOD_NOT_ALLOWED",
+          "message": "Invalid Operation",
+          "transactionId": "12d0133f-b4f6-400b-9dcd-5f3dd0e09220"
+        },
+        "example_17": {
+          "code": "DOMAIN-T-501",
+          "reason": "NOT_IMPLEMENTED",
+          "message": "Operation Not Implemented",
+          "transactionId": "12d0133f-b4f6-400b-9dcd-5f3dd0e09220"
+        }
+      },
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "code": {
+          "description": "Technical/Business Error Code",
+          "type": "string"
+        },
+        "reason": {
+          "description": "Error Type",
+          "type": "string"
+        },
+        "message": {
+          "description": "Error Details",
+          "type": "string"
+        },
+        "transationID": {
+          "description": "Unique Transaction ID",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,3222 @@
+swagger: "2.0"
+info:
+  version: VAR-O2B.22.13
+  title: "Customer Management"
+host: inmarsat-sandbox.apigee.net
+basePath: /v1/customerManagement
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /customer:
+    get:
+      tags:
+        - customer
+      summary: Retrieve an array of customer legal entities.
+      description: Retrieve all customers in the user's scope via query parameters
+      operationId: getCustomers
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: include
+          type: string
+          description: The inclusion filter requests that the response contains on the named fields. Multiple fields can be specified in a common separated string. Not applicable for address.id, contact.id, and medium.id
+          required: false
+        - in: query
+          name: partialSearch
+          type: string
+          description: Performs a partial search for a given query.
+          required: false
+        - in: query
+          name: offset
+          type: integer
+          default: 0
+          description: Provides the ability to skip a certain number of records.
+          required: false
+        - in: query
+          name: limit
+          type: integer
+          default: 10
+          description: Provides the ability to specify the number of records being displayed. If not provided, then a default of 10 records will be displayed.
+          required: false
+      responses:
+        "200":
+          description: Complete
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/QueryCustomer"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+  /customer/{customerId}:
+    get:
+      tags:
+        - customer
+      summary: Retrieve Specific customer.
+      description: Retrieve Specific customer details.
+      operationId: getCustomerId
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Customer id
+          required: true
+      responses:
+        "200":
+          description: Complete
+          schema:
+            $ref: "#/definitions/Customer"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+  /customer/{customerId}/detail:
+    get:
+      tags:
+        - customer
+      summary: Retrieve customerâ€™s details.
+      description: Get customer details
+      operationId: getCustomerDetails
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Id of the customer.
+          required: true
+      responses:
+        "200":
+          description: Complete
+          schema:
+            $ref: "#/definitions/CustomerDetails"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+  /customer/{customerId}/address:
+    get:
+      tags:
+        - customer
+      summary: Query Customer Addresses.
+      description: Get all customer addresses
+      operationId: getCustomerAddress
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Id of the customer.
+          required: true
+        - in: query
+          name: offset
+          type: integer
+          description: Provides the ability to skip a certain number of records.
+          required: false
+        - in: query
+          name: limit
+          type: integer
+          description: Provides the ability to specify the number of records being displayed. If not provided, then a default of 10 records will be displayed.
+          required: false
+      responses:
+        "200":
+          description: Complete
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Address"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+    post:
+      tags:
+        - customer
+      summary: Create an address for a customer.
+      description: Create customer address
+      operationId: "createAddress"
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Id of the customer.
+          required: true
+        - in: body
+          name: address
+          description: Address object.
+          required: true
+          schema:
+            $ref: "#/definitions/CreateAddress"
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: "#/definitions/AddressPostResponse"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+  /customer/{customerId}/address/{addressId}:
+    get:
+      tags:
+        - customer
+      summary: Retrieve a customer address by Id.
+      description: Get customer address
+      operationId: getCustomerAddressId
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Id of the customer.
+          required: true
+        - in: path
+          name: addressId
+          type: string
+          description: Id reference of the address.
+          required: true
+      responses:
+        "200":
+          description: Complete
+          schema:
+            $ref: "#/definitions/Address"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+    patch:
+      tags:
+        - customer
+      summary: Modify a Customer's address
+      description: Update customer address
+      operationId: "modifyAddress"
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Id of the customer.
+          required: true
+        - in: path
+          name: addressId
+          type: string
+          description: Id of the address.
+          required: true
+        - in: body
+          name: address
+          description: Address object.
+          required: true
+          schema:
+            $ref: "#/definitions/ModifyAddress"
+      responses:
+        "200":
+          description: Complete
+          schema:
+            $ref: "#/definitions/PatchResponse"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+    delete:
+      tags:
+        - customer
+      summary: Delete customer address.
+      description: Delete the customer address by setting the end date
+      operationId: "deleteAddress"
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Id of the customer.
+          required: true
+        - in: path
+          name: addressId
+          type: string
+          description: Id of the address.
+          required: true
+      responses:
+        "200":
+          description: Complete
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+  /customer/{customerId}/contact:
+    get:
+      tags:
+        - customer
+      summary: Query customer contacts.
+      description: Get all customer contacts
+      operationId: getCustomerContact
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Customer id.
+          required: true
+        - in: query
+          name: offset
+          type: integer
+          description: Provides the ability to skip a certain number of records.
+          required: false
+        - in: query
+          name: limit
+          type: integer
+          description: Provides the ability to specify the number of records being displayed. If not provided, then a default of 10 records will be displayed.
+          required: false
+      responses:
+        "200":
+          description: Complete
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Contact"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+    post:
+      tags:
+        - customer
+      summary: Create customer contact.
+      description: ""
+      operationId: "createContact"
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Customer id.
+          required: true
+        - in: body
+          name: contact
+          description: Contact object.
+          required: true
+          schema:
+            $ref: "#/definitions/CreateContact"
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: "#/definitions/ContactPostResponse"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+  /customer/{customerId}/contact/{contactId}:
+    get:
+      tags:
+        - customer
+      summary: Retrieve customer contacts by Id
+      description: Get customer contact
+      operationId: getCustomerContactId
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Customer id.
+          required: true
+        - in: path
+          name: contactId
+          type: string
+          description: Contact reference id.
+          required: true
+      responses:
+        "200":
+          description: Complete
+          schema:
+            $ref: "#/definitions/Contact"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+    patch:
+      tags:
+        - customer
+      summary: Modify customer contact.
+      description: Update customer contact
+      operationId: "modifyContact"
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: The customer id.
+          required: true
+        - in: path
+          name: contactId
+          type: string
+          description: The contact id.
+          required: true
+        - in: body
+          name: contact
+          description: Contact object.
+          required: true
+          schema:
+            $ref: "#/definitions/ModifyContact"
+      responses:
+        "200":
+          description: Complete
+          schema:
+            $ref: "#/definitions/PatchResponse"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+    delete:
+      tags:
+        - customer
+      summary: Delete customer contact
+      description: Delete customer contact by setting the end date
+      operationId: "deleteContact"
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Id of the customer
+          required: true
+        - in: path
+          name: contactId
+          type: string
+          description: Id of the contact
+          required: true
+      responses:
+        "200":
+          description: Complete
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+  /customer/{customerId}/account:
+    get:
+      tags:
+        - customer
+      summary: Query customer accounts
+      description: Query customer accounts
+      operationId: getCustomerAccount
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Customer id
+          required: true
+        - in: query
+          name: offset
+          type: integer
+          description: Provides the ability to skip a certain number of records.
+          required: false
+        - in: query
+          name: limit
+          type: integer
+          description: Provides the ability to specify the number of records being displayed. If not provided, then a default of 10 records will be displayed.
+          required: false
+      responses:
+        "200":
+          description: Complete
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Account"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+  /customer/{customerId}/account/{accountId}:
+    get:
+      tags:
+        - customer
+      summary: Retrieve Customer account by Id
+      description: Retrieve customer accounts
+      operationId: getCustomerAccountId
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Customer id
+          required: true
+        - in: path
+          name: accountId
+          type: string
+          description: Account Reference id
+          required: true
+      responses:
+        "200":
+          description: Complete
+          schema:
+            $ref: "#/definitions/Account"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+  /customer/{customerId}/contact/{contactId}/medium:
+    get:
+      tags:
+        - customer
+      summary: View list of contact mediums
+      description: Retrieve list of contact mediums
+      operationId: getCustomerContactMediums
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Customer id
+          required: true
+        - in: path
+          name: contactId
+          type: string
+          description: Contact reference id
+          required: true
+      responses:
+        "200":
+          description: Complete
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/QueryContactMedium"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+    post:
+      tags:
+        - customer
+      summary: Create medium to be assigned to a customer contact.
+      description: Create a medium for the contact
+      operationId: createCustomerContactMedium
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Customer id
+          required: true
+        - in: path
+          name: contactId
+          type: string
+          description: Contact id
+          required: true
+        - in: body
+          name: medium
+          description: Medium Object
+          required: true
+          schema:
+            $ref: "#/definitions/CreateContactMedium"
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: "#/definitions/MediumPostResponse"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+  /customer/{customerId}/contact/{contactId}/medium/{mediumType}:
+    get:
+      tags:
+        - customer
+      summary: View specific contact medium by Id
+      description: Retrieve a specific contact medium
+      operationId: getCustomerContactMediumId
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Customer id
+          required: true
+        - in: path
+          name: contactId
+          type: string
+          description: Contact reference id
+          required: true
+        - in: path
+          name: mediumType
+          type: string
+          description: Medium type.
+          required: true
+          enum:
+            - Work Phone
+            - Other Phone
+            - Cell Phone
+            - Fax
+            - Other Fax
+            - Work Email
+            - Other Email
+            - Shipping Phone
+            - Shipping Fax
+            - Shipping Email
+            - SMTP
+            - Web Address
+      responses:
+        "200":
+          description: Complete
+          schema:
+            $ref: "#/definitions/QueryContactMedium"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+    patch:
+      tags:
+        - customer
+      summary: Modify medium that has been assigned to a contact.
+      description: Update a medium for the contact
+      operationId: modifyContactMedium
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Customer id
+          required: true
+        - in: path
+          name: contactId
+          type: string
+          description: Contact id
+          required: true
+        - in: path
+          name: mediumType
+          type: string
+          description: Medium type.
+          required: true
+          enum:
+            - Work Phone
+            - Other Phone
+            - Cell Phone
+            - Fax
+            - Other Fax
+            - Work Email
+            - Other Email
+            - Shipping Phone
+            - Shipping Fax
+            - Shipping Email
+            - SMTP
+            - Web Address
+        - in: body
+          name: medium
+          description: Medium Object
+          required: true
+          schema:
+            $ref: "#/definitions/ModifyMedium"
+      responses:
+        "200":
+          description: Complete
+          schema:
+            $ref: "#/definitions/PatchResponse"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+    delete:
+      tags:
+        - customer
+      summary: Delete a customer's contact medium
+      description: Delete a medium from a contact
+      operationId: "deleteContactMedium"
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: customerId
+          type: string
+          description: Customer id
+          required: true
+        - in: path
+          name: contactId
+          type: string
+          description: Contact id
+          required: true
+        - in: path
+          name: mediumType
+          type: string
+          description: Medium type.
+          required: true
+          enum:
+            - Work Phone
+            - Other Phone
+            - Cell Phone
+            - Fax
+            - Other Fax
+            - Work Email
+            - Other Email
+            - Shipping Phone
+            - Shipping Fax
+            - Shipping Email
+            - SMTP
+            - Web Address
+      responses:
+        "200":
+          description: Complete
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+  /notificationEmail:
+    get:
+      tags:
+        - Email notification
+      summary: Query Email notification.
+      description: Queries notification emails that were triggered by SFDC.
+      operationId: getnotificationEmail
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: notificationType
+          type: array
+          items:
+            type: string
+            enum:
+              - GX Usage
+          description: Notification Type
+          required: false
+        - in: query
+          name: productInstanceId
+          type: string
+          description: unique identifier of the product instance in CIB.
+          required: false
+        - in: query
+          name: siteId
+          type: string
+          description: unique identifier of the Site.
+          required: true
+        - in: query
+          name: endDateTime
+          type: string
+          description: End date and time of notification.
+          format: date-time
+          required: false
+        - in: query
+          name: startDateTime
+          type: string
+          format: date-time
+          description: Start date and time of notification.
+          required: false
+        - in: query
+          name: offset
+          type: integer
+          description: Provides the ability to skip a certain number of records.
+          required: false
+        - in: query
+          name: limit
+          type: integer
+          description: Provides the ability to specify the number of records being displayed. If not provided, then a default of 10 records will be displayed.
+          required: false
+        - name: sort_by
+          in: query
+          type: string
+          description: EmailAddress, DateSent and Notification Type attribute available for sort_by.(e.g sort_by=emailAddress.asc or sort_by=emailAddress.desc)
+      responses:
+        "200":
+          description: Complete
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/QueryNotificationEmailList"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+  /customerRefData:
+    get:
+      tags:
+        - customerRefData
+      summary: Returns a list of customer related reference data
+      operationId: getCustomerRefData
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: type
+          description: Reference data will be returned based on the â€˜typeâ€™ used. See below for a list of possible â€˜typesâ€™.
+          required: true
+          type: string
+          enum:
+            - customerType
+            - paymentMethod
+            - aircraftClass
+            - siteStatus
+            - landType
+            - vesselSubType
+            - invoicePreference
+            - vesselMarket
+            - siteType
+        - in: query
+          name: concise
+          description: Using concise will provide a short format of the ref data.
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Complete
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/refDataResponse"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+  /genericRefData:
+    get:
+      tags:
+        - genericRefData
+      summary: Returns a list of non-customer related reference data
+      operationId: getGenericRefData
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: type
+          description: Reference data will be returned based on the â€˜typeâ€™ used.
+          required: true
+          type: string
+          enum:
+            - prefix
+            - medium
+            - language
+            - currency
+            - country
+            - airlines
+            - states
+            - suffix
+        - in: query
+          name: concise
+          description: Using concise will provide a short format of the ref data.
+          required: false
+          type: string
+        - in: query
+          name: country
+          description: Two digit country code. Country code can be obtained when type=country.
+          required: false
+          type: string
+        - in: query
+          name: threeChar
+          description: This is used to return the two digit country code when the three character country code is provided in the query.
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Complete
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/refDataResponse"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+  /site:
+    post:
+      tags:
+        - site
+      summary: Register customer site
+      description: Create a new site and pair it with a folder
+      operationId: createSite
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: site
+          description: Site configuration
+          required: true
+          schema:
+            $ref: "#/definitions/PostSite"
+      responses:
+        201:
+          description: Created
+          schema:
+            type: object
+            properties:
+              siteId:
+                type: string
+        400:
+          $ref: "#/responses/BadRequest"
+        401:
+          $ref: "#/responses/Unauthorized"
+        404:
+          $ref: "#/responses/NotFound"
+        500:
+          $ref: "#/responses/ServerError"
+    get:
+      tags:
+        - site
+      summary: Query list of sites under a customer.
+      description: Collect the list of sites linked to a given folder and filtered by permission
+      operationId: getSites
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: customerId
+          description: Customer Id. Mutually exclusive with folderId.
+          required: false
+          type: string
+        - in: query
+          name: category
+          description: Array of category name to filter on.
+          required: false
+          type: array
+          items:
+            type: string
+            enum:
+              - Air
+              - Land
+              - Sea
+        - in: query
+          name: aircraftClass
+          description: Aircraft Class is only available for Category Air.
+          required: false
+          type: array
+          items:
+            type: string
+        - in: query
+          name: vesselMarket
+          description: Vessel Market is available only for Category Sea.
+          required: false
+          type: array
+          items:
+            type: string
+        - in: query
+          name: status
+          description: Array of status to filter on.
+          required: false
+          type: array
+          items:
+            type: string
+            enum:
+              - Active
+              - Draft
+              - Inactive
+        - in: query
+          name: folderId
+          description: FolderId array to filter on. Mutually exclusive with customerId.
+          required: false
+          type: array
+          items:
+            type: string
+        - in: query
+          name: offset
+          description: Provides the ability to skip a certain number of records.
+          required: false
+          type: integer
+        - in: query
+          name: limit
+          description: Provides the ability to specify the number of records being displayed. If not provided, then a default of 10 records will be displayed.
+          required: false
+          type: integer
+        - in: query
+          name: sort_by
+          type: string
+          required: false
+          description: id,name,category,folderName,status,customerSiteRef attribute available for sort_by.(e.g sort_by=id.asc or sort_by=id.desc)
+        - in: query
+          type: string
+          name: ctxSearch
+          required: false
+          description: wildcard search in all attribute values
+      responses:
+        "200":
+          description: Complete
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/QuerySite"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+  /site/{siteId}:
+    get:
+      tags:
+        - site
+      summary: Retrieve Site by Id
+      description: Get the site characterisitics based on a site id
+      operationId: getSiteId
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: siteId
+          type: string
+          description: Site id
+          required: true
+      responses:
+        "200":
+          description: Complete
+          schema:
+            $ref: "#/definitions/RetrieveSite"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/Unauthorized"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/ServerError"
+    patch:
+      tags:
+        - site
+      summary: Modify Site.
+      description: ""
+      operationId: modifySite
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: siteId
+          type: string
+          description: Site id.
+          required: true
+        - in: body
+          name: site
+          description: the site configuration
+          required: true
+          schema:
+            $ref: "#/definitions/PatchSite"
+      responses:
+        200:
+          description: Complete
+        400:
+          $ref: "#/responses/BadRequest"
+        401:
+          $ref: "#/responses/Unauthorized"
+        404:
+          $ref: "#/responses/NotFound"
+        500:
+          $ref: "#/responses/ServerError"
+    delete:
+      tags:
+        - site
+      summary: Deactivate a Site
+      description: ""
+      operationId: deleteSite
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: siteId
+          type: string
+          description: Site id.
+          required: true
+      responses:
+        200:
+          description: Complete
+        400:
+          $ref: "#/responses/BadRequest"
+        401:
+          $ref: "#/responses/Unauthorized"
+        404:
+          $ref: "#/responses/NotFound"
+        500:
+          $ref: "#/responses/ServerError"
+  /folder:
+    get:
+      tags:
+        - folder
+      summary: Query Customer Folders
+      description: ""
+      operationId: getFolders
+      produces:
+        - application/json
+      parameters:
+        - name: customerId
+          in: query
+          description: Customer Id. Mutually exclusive with parentFolderId.
+          required: false
+          type: string
+        - name: parentFolderId
+          in: query
+          description: Parent Folder Id. Mutually exclusive with customerId.
+          required: false
+          type: string
+        - name: offset
+          in: query
+          description: Provides the ability to skip a certain number of records.
+          required: false
+          type: integer
+        - name: limit
+          in: query
+          description: Provides the ability to specify the number of records being displayed. If not provided, then a default of 10 records will be displayed.
+          required: false
+          type: integer
+      responses:
+        200:
+          description: Complete
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/FolderOutput"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: The specified resource was not found
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Server Error
+          schema:
+            $ref: "#/definitions/Error"
+    post:
+      tags:
+        - folder
+      summary: Register customer folder
+      description: The purpose of this service is to create a new folder
+      operationId: createFolder
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: folder
+          description: The Folder configuration
+          required: true
+          schema:
+            $ref: "#/definitions/PostFolderInput"
+      responses:
+        200:
+          description: Complete
+          schema:
+            properties:
+              folderId:
+                type: string
+                description: Id of the created folder. Site Folder Format FO-{0000000000}. Site Sub Folder Format FN-{0000000000}
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: The specified resource was not found
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Server Error
+          schema:
+            $ref: "#/definitions/Error"
+  /folder/{folderId}:
+    get:
+      tags:
+        - folder
+      summary: Retrieve Customer folder
+      description: ""
+      operationId: getFolder
+      produces:
+        - application/json
+      parameters:
+        - name: folderId
+          in: path
+          description: Folder id
+          required: true
+          type: string
+      responses:
+        200:
+          description: Complete
+          schema:
+            $ref: "#/definitions/FolderOutputId"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: The specified resource was not found
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Server Error
+          schema:
+            $ref: "#/definitions/Error"
+    patch:
+      tags:
+        - folder
+      summary: Modify Customer Folder
+      description: ""
+      operationId: modifyFolder
+      produces:
+        - application/json
+      parameters:
+        - name: folderId
+          in: path
+          description: Folder id
+          required: true
+          type: string
+        - in: body
+          name: folder
+          description: Folder configuration
+          required: true
+          schema:
+            $ref: "#/definitions/PatchFolderInput"
+      responses:
+        200:
+          description: Complete
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: The specified resource was not found
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Server Error
+          schema:
+            $ref: "#/definitions/Error"
+    delete:
+      tags:
+        - folder
+      summary: Unregister Customer Folder.
+      description: ""
+      operationId: deleteFolder
+      produces:
+        - application/json
+      parameters:
+        - name: folderId
+          in: path
+          description: the folder id
+          required: true
+          type: string
+      responses:
+        200:
+          description: Complete
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: The specified resource was not found
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Server Error
+          schema:
+            $ref: "#/definitions/Error"
+  /divisionFolder/{folderId}:
+    patch:
+      tags:
+        - folder
+      summary: Modify Notification Email Address
+      operationId: modifyNotificationEmail
+      parameters:
+        - name: folderId
+          in: path
+          description: Folder id
+          required: true
+          type: string
+        - in: body
+          name: folder
+          description: Folder configuration
+          required: true
+          schema:
+            $ref: "#/definitions/PatchNotificationEmailInput"
+      responses:
+        200:
+          description: Complete
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: The specified resource was not found
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Server Error
+          schema:
+            $ref: "#/definitions/Error"
+  /folder/hierarchy:
+    get:
+      tags:
+        - folder
+      summary: returns a folder
+      description: ""
+      operationId: getFolderHierarchy
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        200:
+          description: Complete
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/FolderHierarchy"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: The specified resource was not found
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Server Error
+          schema:
+            $ref: "#/definitions/Error"
+  /folder/eligibleSiteMoveHierarchy/{folderId}:
+    get:
+      tags:
+        - folder
+      summary: Query Eligible Site Move Folders
+      description: ""
+      operationId: getSiteMoveFolders
+      produces:
+        - application/json
+      parameters:
+        - name: folderId
+          in: path
+          description: Folder id(level 2 folderId)
+          required: true
+          type: string
+      responses:
+        200:
+          description: Complete
+          schema:
+            $ref: "#/definitions/EligibleSiteFoldersOutput"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: The specified resource was not found
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Server Error
+          schema:
+            $ref: "#/definitions/Error"
+definitions:
+  Account:
+    type: object
+    properties:
+      accountNumber:
+        type: string
+        description: Number of the registered account.
+      name:
+        type: string
+        description: Account Name.
+      invoicePreference:
+        type: string
+        description: Invoice Preference.
+      paymentMethod:
+        type: string
+        description: Payment Method.
+      paymentTerms:
+        type: string
+        description: Payment Terms.
+      shippingDetails:
+        type: array
+        description: Array of shipping details.
+        items:
+          $ref: "#/definitions/ShippingDetails"
+      generalDetails:
+        $ref: "#/definitions/GeneralDetails"
+  Address:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Id reference of the allocated address.
+      addressLine1:
+        type: string
+        description: Address Line 1.
+      addressLine2:
+        type: string
+        description: Address Line 2.
+      addressLine3:
+        type: string
+        description: Address Line 3.
+      careOfName:
+        type: string
+        description: Care of name.
+      city:
+        type: string
+        description: City.
+      dist:
+        type: string
+        description: District.
+      stateProvince:
+        type: string
+        description: Province.
+      isoStateProvince:
+        type: string
+        description: ISO state or province.
+      country:
+        type: string
+        description: Country.
+      isoCountryCode:
+        type: string
+        description: ISO country code.
+      postalCode:
+        type: string
+        description: Postal Code.
+      postalCodeExt:
+        type: string
+        description: Post code extension.
+      poBox:
+        type: string
+        description: Po Box.
+      generalDetails:
+        $ref: "#/definitions/GeneralDetails"
+  CreateAddress:
+    type: object
+    required:
+      - addressLine1
+      - city
+      - country
+      - isoCountryCode
+    properties:
+      addressLine1:
+        type: string
+        description: Address Line 1.
+      addressLine2:
+        type: string
+        description: Address Line 2.
+      addressLine3:
+        type: string
+        description: Address Line 3.
+      careOfName:
+        type: string
+        description: Care of name.
+      city:
+        type: string
+        description: City.
+      dist:
+        type: string
+        description: District.
+      stateProvince:
+        type: string
+        description: Province.
+      isoStateProvince:
+        type: string
+        description: ISO state or province.
+      country:
+        type: string
+        description: Country.
+      isoCountryCode:
+        type: string
+        description: ISO country code.
+      postalCode:
+        type: string
+        description: Postal Code.
+      postalCodeExt:
+        type: string
+        description: Post code extension.
+      poBox:
+        type: string
+        description: Po Box.
+      generalDetails:
+        $ref: "#/definitions/CreateAndModifyAddressGeneralDetails"
+  CreateAndModifyAddressGeneralDetails:
+    type: object
+    description: Generic Details.
+    properties:
+      validFor:
+        $ref: "#/definitions/CreateAndModifyAddressValidFor"
+  ModifyAddressGeneralDetails:
+    type: object
+    description: Generic Details.
+    properties:
+      validFor:
+        $ref: "#/definitions/ModifyAddressValidFor"
+  CreateAndModifyAddressValidFor:
+    type: object
+    properties:
+      endDateTime:
+        type: string
+        description: End date for the address.
+        format: date-time
+        example: "2028-07-10T11:44:00Z"
+  ModifyAddressValidFor:
+    type: object
+    properties:
+      endDateTime:
+        description: End date for the address.
+  ModifyAddress:
+    type: object
+    properties:
+      addressLine1:
+        type: string
+        description: Address Line 1.
+      addressLine2:
+        type: string
+        description: Address Line 2.
+      addressLine3:
+        type: string
+        description: Address Line 3.
+      careOfName:
+        type: string
+        description: Care of name.
+      city:
+        type: string
+        description: City.
+      dist:
+        type: string
+        description: District.
+      stateProvince:
+        type: string
+        description: Province.
+      isoStateProvince:
+        type: string
+        description: ISO state or province.
+      country:
+        type: string
+        description: Country.
+      isoCountryCode:
+        type: string
+        description: ISO country code.
+      postalCode:
+        type: string
+        description: Postal Code.
+      postalCodeExt:
+        type: string
+        description: Post code extension.
+      poBox:
+        type: string
+        description: Po Box.
+      generalDetails:
+        $ref: "#/definitions/CreateAndModifyAddressGeneralDetails"
+  Aircraft:
+    type: object
+    required:
+      - class
+    description: Represents the aircraft details. Vessel, Aircraft and Land are mutually exclusive.
+    properties:
+      tailNumber:
+        type: string
+        description: Tail number.
+      icaoNumber:
+        type: string
+        description: ICAO number. International Civil Aviation Organisation Number.
+      yearOfManufacture:
+        type: string
+        description: Year of manufacture. Format is YYYY.
+      name:
+        type: string
+        description: Aircraft name.
+      model:
+        type: string
+        description: Aircraft model.
+      class:
+        type: string
+        description: Aircraft class.
+      countryOfRegistration:
+        type: string
+        description: Registration Country. Data to pass will be a 2-char value. This can be obtained with the Generic Reference Data API.
+  PatchAircraft:
+    type: object
+    description: Represents the aircraft details. Vessel, Aircraft and Land are mutually exclusive.
+    properties:
+      tailNumber:
+        type: string
+        description: Tail number.
+      icaoNumber:
+        type: string
+        description: ICAO number. International Civil Aviation Organisation Number.
+      yearOfManufacture:
+        type: string
+        description: Year of manufacture. Format is YYYY.
+      name:
+        type: string
+        description: Aircraft name.
+      model:
+        type: string
+        description: Aircraft model.
+      class:
+        type: string
+        description: Aircraft class.
+      countryOfRegistration:
+        type: string
+        description: Registration Country. Data to pass will be a 2-char value. This can be obtained with the Generic Reference Data API.
+  Land:
+    type: object
+    required:
+      - countryOfInstallation
+    description: Represents the land details. Vessel, Aircraft and Land are mutually exclusive.
+    properties:
+      countryOfInstallation:
+        type: string
+        description: Installation Country.
+  PatchLand:
+    type: object
+    description: Represents the land details. Vessel, Aircraft and Land are mutually exclusive.
+    properties:
+      countryOfInstallation:
+        type: string
+        description: Installation Country.
+  BillingAccount:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+  BillingAccountInput:
+    type: object
+    properties:
+      id:
+        type: string
+  Characteristic:
+    type: object
+    required:
+      - name
+      - value
+    properties:
+      name:
+        type: string
+      value:
+        type: string
+  Contact:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Id reference of contact.
+      givenName:
+        type: string
+        description: Name of Contact.
+      surname:
+        type: string
+        description: Surname of Contact.
+      prefix:
+        type: string
+        description: Contact Prefix.
+      suffix:
+        type: string
+        description: Contact Suffix.
+      jobTitle:
+        type: string
+        description: Contact Job Title.
+      type:
+        type: string
+        description: type of contact.
+      preferredContactMedium:
+        type: string
+        description: Preferred medium contact.
+      generalDetails:
+        $ref: "#/definitions/GeneralDetails"
+      medium:
+        type: array
+        description: Medium Array.
+        items:
+          $ref: "#/definitions/QueryContactMedium"
+  QueryNotificationEmailList:
+    type: object
+    properties:
+      dateSent:
+        type: string
+        description: The date of notification sent Datetime
+      emailAddress:
+        type: string
+        description: Email Address.
+      emailText:
+        type: string
+        description: Email Text.
+      notificationType:
+        type: string
+        description: The type of notification.
+  QueryContact:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Id reference of contact.
+      givenName:
+        type: string
+        description: Name of Contact.
+      surname:
+        type: string
+        description: Surname of Contact.
+      prefix:
+        type: string
+        description: Contact Prefix.
+      suffix:
+        type: string
+        description: Contact Suffix.
+      jobTitle:
+        type: string
+        description: Contact Job Title.
+      preferredContactMedium:
+        type: string
+        description: Preferred medium contact.
+      generalDetails:
+        $ref: "#/definitions/GeneralDetails"
+      medium:
+        type: array
+        description: Medium Array.
+        items:
+          $ref: "#/definitions/QueryCustomerMedium"
+  CreateContact:
+    type: object
+    required:
+      - givenName
+      - surname
+      - medium
+      - type
+    properties:
+      givenName:
+        type: string
+        description: Name of Contact.
+      surname:
+        type: string
+        description: Surname of Contact.
+      prefix:
+        type: string
+        description: Contact Prefix.
+      suffix:
+        type: string
+        description: Contact Suffix.
+      type:
+        type: string
+        description: Contact type.
+      jobTitle:
+        type: string
+        description: Contact Job Title.
+      preferredContactMedium:
+        type: string
+        description: Preferred medium contact.
+      generalDetails:
+        $ref: "#/definitions/CreateAndModifyContactGeneralDetails"
+      medium:
+        type: array
+        description: Medium Array.
+        items:
+          $ref: "#/definitions/CreateContactMedium"
+  ModifyContact:
+    type: object
+    properties:
+      givenName:
+        type: string
+        description: Name of Contact.
+      surname:
+        type: string
+        description: Surname of Contact.
+      prefix:
+        type: string
+        description: Contact Prefix.
+      suffix:
+        type: string
+        description: Contact Suffix.
+      type:
+        type: string
+        description: Contact type.
+      jobTitle:
+        type: string
+        description: Contact Job Title.
+      preferredContactMedium:
+        type: string
+        description: Preferred medium contact.
+      generalDetails:
+        $ref: "#/definitions/CreateAndModifyContactGeneralDetails"
+      medium:
+        type: array
+        description: Medium Array.
+        items:
+          $ref: "#/definitions/ModifyContactMedium"
+  QueryCustomer:
+    type: object
+    properties:
+      customerId:
+        type: string
+        description: Customer Legal Entity Id.
+      alias:
+        type: string
+        description: Alias.
+      customerDetails:
+        type: array
+        description: Array of Customer Details object.
+        items:
+          $ref: "#/definitions/CustomerDetails"
+      mainContact:
+        type: string
+        description: Reference to Main Contact.
+      mainAddress:
+        type: string
+        description: Reference to Main Address.
+      address:
+        type: array
+        description: Array of the customer addresses.
+        items:
+          $ref: "#/definitions/Address"
+      generalDetails:
+        $ref: "#/definitions/GeneralDetails"
+      account:
+        type: array
+        description: Array of Account details.
+        items:
+          $ref: "#/definitions/Account"
+      contact:
+        type: array
+        description: Array of Contact details.
+        items:
+          $ref: "#/definitions/QueryContact"
+  Customer:
+    type: object
+    properties:
+      customerId:
+        type: string
+        description: Customer Legal Entity Id.
+      alias:
+        type: string
+        description: Alias.
+      customerDetails:
+        $ref: "#/definitions/CustomerDetails"
+      mainContact:
+        type: string
+        description: Reference to Main Contact.
+      mainAddress:
+        type: string
+        description: Reference to Main Address.
+      address:
+        type: array
+        description: Array of the customer addresses.
+        items:
+          $ref: "#/definitions/Address"
+      siteDetails:
+        type: array
+        description: Array of the customer site.
+        items:
+          $ref: "#/definitions/SiteDetails"
+      generalDetails:
+        $ref: "#/definitions/GeneralDetails"
+      account:
+        type: array
+        description: Array of Account details.
+        items:
+          $ref: "#/definitions/Account"
+      contact:
+        type: array
+        description: Array of Contact details.
+        items:
+          $ref: "#/definitions/QueryContact"
+  CustomerDetails:
+    type: object
+    properties:
+      legalName:
+        type: string
+        description: Customer legal name.
+      primaryName:
+        type: string
+        description: Customer primary name.
+  PostFolderInput:
+    type: object
+    required:
+      - name
+      - parentFolderId
+    properties:
+      name:
+        type: string
+        description: Folder name.
+      soaProduct:
+        type: array
+        description: Array of product scope of appointment name.
+        items:
+          $ref: "#/definitions/SOAProduct"
+      marketSector:
+        type: array
+        description: Array of market sector name.
+        items:
+          $ref: "#/definitions/MarketSector"
+      subscriptionPlan:
+        type: array
+        description: Array of subscription plan reference.
+        items:
+          $ref: "#/definitions/SubscriptionPlan"
+      isBillingAccountStrict:
+        type: boolean
+        description: Flag which determines whether Billing Profile Code can be changed. Default is False.
+      defaultBillingAccountId:
+        type: string
+        description: The unique identifier of default billing account reference assigned to a billing account on creation. This value should also be referenced within the billingAccount.
+      billingAccount:
+        type: array
+        description: Array of billing account Ids.
+        items:
+          $ref: "#/definitions/BillingAccountInput"
+      parentFolderId:
+        type: string
+        description: Parent folder id.
+  PatchFolderInput:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Folder name.
+      soaProduct:
+        type: array
+        description: Array of product scope of appointment name.
+        items:
+          $ref: "#/definitions/SOAProduct"
+      marketSector:
+        type: array
+        description: Array of market sector name.
+        items:
+          $ref: "#/definitions/MarketSector"
+      subscriptionPlan:
+        type: array
+        description: Array of subscription plan reference.
+        items:
+          $ref: "#/definitions/SubscriptionPlan"
+      isBillingAccountStrict:
+        type: boolean
+        description: Flag which determines whether Billing Profile Code can be changed. Default is False.
+      defaultBillingAccountId:
+        type: string
+        description: The unique identifier of default billing account reference assigned to a billing account on creation. This value should also be referenced within the billingAccount.
+      billingAccount:
+        type: array
+        description: Array of billing account Ids.
+        items:
+          $ref: "#/definitions/BillingAccountInput"
+      varOperationsEmail:
+        type: string
+        description: VAR operations email address.
+  FolderOutput:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Id of the folder.
+      name:
+        type: string
+        description: Folder name.
+      type:
+        type: string
+        description: Type of the folder.
+        enum:
+          - Customer Division
+          - Site Folder
+          - Site Sub Folder
+      level:
+        type: integer
+        description: Level of the folder.
+      soaProduct:
+        type: array
+        description: Array of product scope of appointment name available on the folder.
+        items:
+          $ref: "#/definitions/SOAProduct"
+      marketSector:
+        type: array
+        description: Array of market sector name.
+        items:
+          $ref: "#/definitions/MarketSector"
+      distributionChannel:
+        type: string
+        description: Distribution channel. Either Direct or Indirect.
+        enum:
+          - Direct
+          - Indirect
+      subscriptionPlan:
+        type: array
+        description: Array of subscription plan reference.
+        items:
+          $ref: "#/definitions/SubsPlan"
+      businessUnit:
+        type: string
+        description: Business Unit of the folder.
+        enum:
+          - Enterprise
+          - Aviation
+          - Maritime
+          - US Government
+          - Global Government
+      isBillingAccountStrict:
+        type: boolean
+        description: Flag which determines whether Billing Profile Code can be changed.
+      defaultBillingAccountId:
+        type: string
+        description: The unique identifier of the default billing account reference assigned to a billing account on creation.
+      billingAccount:
+        type: array
+        description: Array of billing account details.
+        items:
+          $ref: "#/definitions/BillingAccount"
+      parentFolderId:
+        type: string
+        description: The folder parent folder id.
+      customerId:
+        type: string
+        description: Customer id.
+      characteristic:
+        type: array
+        description: Array of characteristic.
+        items:
+          $ref: "#/definitions/Characteristic"
+      varOperationsEmail:
+        type: string
+        description: VAR operations emails.
+  FolderOutputId:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Id of the folder.
+      name:
+        type: string
+        description: Folder name.
+      type:
+        type: string
+        description: Type of the folder.
+        enum:
+          - Customer Division
+          - Site Folder
+          - Site Sub Folder
+      level:
+        type: integer
+        description: Level of the folder.
+      soaProduct:
+        type: array
+        description: Array of product scope of appointment name available on the folder.
+        items:
+          $ref: "#/definitions/SOAProduct"
+      marketSector:
+        type: array
+        description: Array of market sector name.
+        items:
+          $ref: "#/definitions/MarketSector"
+      distributionChannel:
+        type: string
+        description: Distribution channel. Either Direct or Indirect.
+        enum:
+          - Direct
+          - Indirect
+      subscriptionPlan:
+        type: array
+        description: Array of subscription plan reference.
+        items:
+          $ref: "#/definitions/SubsPlan"
+      businessUnit:
+        type: string
+        description: Business Unit of the folder.
+        enum:
+          - Enterprise
+          - Aviation
+          - Maritime
+          - US Government
+          - Global Government
+      isBillingAccountStrict:
+        type: boolean
+        description: Flag which determines whether Billing Profile Code can be changed.
+      defaultBillingAccountId:
+        type: string
+        description: The unique identifier of the default billing account reference assigned to a billing account on creation.
+      billingAccount:
+        type: array
+        description: Array of billing account details.
+        items:
+          $ref: "#/definitions/BillingAccount"
+      parentFolderId:
+        type: string
+        description: The folder parent folder id.
+      customerId:
+        type: string
+        description: Customer id.
+      characteristic:
+        type: array
+        description: Array of characteristic.
+        items:
+          $ref: "#/definitions/Characteristic"
+      varOperationsEmail:
+        type: string
+        description: VAR operations emails.
+      notificationsEmail:
+        type: string
+        description: VAR Notification email.
+      site:
+        type: array
+        description: Array of site object. Available if folder type is Site Folder or Site Sub Folder.
+        items:
+          $ref: "#/definitions/Site"
+      folder:
+        type: array
+        description: Array of child folder object.
+        items:
+          $ref: "#/definitions/FolderOutputId"
+  FolderIdOutput:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      type:
+        type: string
+        enum:
+          - Customer Division
+          - Site Folder
+          - Site Sub Folder
+      level:
+        type: integer
+      soaProduct:
+        type: array
+        items:
+          $ref: "#/definitions/SOAProduct"
+      marketSector:
+        type: array
+        items:
+          $ref: "#/definitions/MarketSector"
+      distributionChannel:
+        type: string
+        enum:
+          - Direct
+          - Indirect
+      subscriptionPlan:
+        type: array
+        items:
+          $ref: "#/definitions/SubscriptionPlan"
+      businessUnit:
+        type: string
+        enum:
+          - Enterprise
+          - Aviation
+          - Maritime
+          - US Government
+          - Global Government
+      isBillingAccountStrict:
+        type: string
+      defaultBillingAccountRef:
+        type: string
+      billingAccount:
+        type: array
+        items:
+          $ref: "#/definitions/BillingAccount"
+      parentFolderId:
+        type: string
+      customerId:
+        type: string
+      characteristic:
+        type: array
+        items:
+          $ref: "#/definitions/Characteristic"
+      site:
+        type: array
+        items:
+          $ref: "#/definitions/Site"
+      folder:
+        type: array
+        items:
+          $ref: "#/definitions/FolderIdOutput"
+  Site:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Site id.
+      name:
+        type: string
+        description: Site name.
+      status:
+        type: string
+        description: Site status.
+        enum:
+          - Draft
+          - Active
+          - Deleted
+          - Inactive
+      category:
+        type: string
+        description: Site category.
+        enum:
+          - Land
+          - Sea
+          - Air
+      defaultBillingAccountId:
+        type: string
+        description: The unique identifier of the default billing account reference assigned to a billing account on creation. This value should also be referenced within the billingAccount.
+  PatchNotificationEmailInput:
+    type: object
+    properties:
+      notificationsEmail:
+        type: string
+        description: Notification email address.
+  FolderHierarchy:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      type:
+        type: string
+        enum:
+          - Customer Division
+          - Site Folder
+          - Site Sub Folder
+      level:
+        type: integer
+      parentFolderId:
+        type: string
+      customerId:
+        type: string
+      site:
+        type: array
+        items:
+          $ref: "#/definitions/SiteFolderHierarchy"
+      folder:
+        type: array
+        items:
+          $ref: "#/definitions/FolderHierarchy"
+  SiteFolderHierarchy:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+  GeneralDetails:
+    type: object
+    description: Generic Details.
+    properties:
+      createdDate:
+        type: string
+        format: date-time
+        description: Created Date.
+      lastModifiedDate:
+        type: string
+        format: date-time
+        description: Last Modified Date.
+      validFor:
+        $ref: "#/definitions/ValidFor"
+  CreateAndModifyContactGeneralDetails:
+    type: object
+    description: Generic Details.
+    properties:
+      validFor:
+        $ref: "#/definitions/CreateAndModifyContactValidFor"
+  SiteLocation:
+    type: object
+    properties:
+      land:
+        $ref: "#/definitions/Land"
+      aircraft:
+        $ref: "#/definitions/Aircraft"
+      vessel:
+        $ref: "#/definitions/Vessel"
+  PatchSiteLocation:
+    type: object
+    properties:
+      land:
+        $ref: "#/definitions/PatchLand"
+      aircraft:
+        $ref: "#/definitions/PatchAircraft"
+      vessel:
+        $ref: "#/definitions/PatchVessel"
+  MarketSector:
+    type: object
+    properties:
+      name:
+        type: string
+        enum:
+          - Business Aviation
+          - Commercial Air Transport
+          - Commercial Maritime
+          - Enterprise Energy
+          - Enterprise
+          - General Aviation
+          - Government Aeronautical
+          - Government Land
+          - Government Maritime
+          - Government Maritime Sector (USG)
+          - Government Aeronautical Sector (USG)
+          - Government
+          - Government Land Sector (USG)
+          - Government Sector (USG)
+  QueryContactMedium:
+    type: object
+    properties:
+      allowContact:
+        type: boolean
+        description: States whether contact is permitted.
+      type:
+        type: string
+        description: Medium type.
+        enum:
+          - Work Phone
+          - Other Phone
+          - Cell Phone
+          - Fax
+          - Other Fax
+          - Work Email
+          - Other Email
+          - Shipping Phone
+          - Shipping Fax
+          - Shipping Email
+          - SMTP
+          - Web Address
+      value:
+        type: string
+        description: Medium value.
+  QueryCustomerMedium:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Id reference for medium object
+      allowContact:
+        type: boolean
+        description: States whether contact is permitted.
+      type:
+        type: string
+        description: Medium type.
+        enum:
+          - Work Phone
+          - Other Phone
+          - Cell Phone
+          - Fax
+          - Other Fax
+          - Work Email
+          - Other Email
+          - Shipping Phone
+          - Shipping Fax
+          - Shipping Email
+          - SMTP
+          - Web Address
+      value:
+        type: string
+        description: Medium value.
+  CreateContactMedium:
+    type: object
+    required:
+      - type
+      - value
+    properties:
+      allowContact:
+        type: boolean
+        description: States whether contact is permitted.
+      type:
+        type: string
+        description: Medium type.
+        enum:
+          - Work Phone
+          - Other Phone
+          - Cell Phone
+          - Fax
+          - Other Fax
+          - Work Email
+          - Other Email
+          - Shipping Phone
+          - Shipping Fax
+          - Shipping Email
+          - SMTP
+          - Web Address
+      value:
+        type: string
+        description: Medium value.
+  ModifyContactMedium:
+    type: object
+    required:
+      - type
+    properties:
+      allowContact:
+        type: boolean
+        description: States whether contact is permitted.
+      value:
+        type: string
+        description: Medium value.
+      type:
+        type: string
+        description: Medium type.
+        enum:
+          - Work Phone
+          - Other Phone
+          - Cell Phone
+          - Fax
+          - Other Fax
+          - Work Email
+          - Other Email
+          - Shipping Phone
+          - Shipping Fax
+          - Shipping Email
+          - SMTP
+          - Web Address
+  ModifyMedium:
+    type: object
+    properties:
+      allowContact:
+        type: boolean
+        description: States whether contact is permitted.
+      value:
+        type: string
+        description: Medium value.
+  refDataResponse:
+    type: object
+    properties:
+      refData:
+        $ref: "#/definitions/refData"
+      concise:
+        $ref: "#/definitions/refConcise"
+  refData:
+    type: object
+    properties:
+      characteristic:
+        type: array
+        items:
+          $ref: "#/definitions/characteristicRef"
+  refConcise:
+    type: object
+    properties:
+      name:
+        type: string
+  characteristicRef:
+    type: object
+    properties:
+      name:
+        type: string
+      name1:
+        type: string
+      value:
+        type: string
+  ShippingDetails:
+    type: object
+    properties:
+      address:
+        type: string
+        description: Address reference.
+      contact:
+        type: string
+        description: Contact reference.
+  PatchSite:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Site Name.
+      categoryDetails:
+        $ref: "#/definitions/PatchSiteLocation"
+      contact:
+        type: array
+        items:
+          $ref: "#/definitions/PatchSiteContact"
+      emergencyContactId:
+        type: string
+        description: Id of the emergency site contact. Id of the contact can be found using the customer Contact endpoint.
+      addressId:
+        type: string
+        description: Primary address id. Id of the address can be found using the customer Address endpoint.
+      emergencyAddressId:
+        type: string
+        description: Id of the emergency Address. The Address object will be in the address array. Only for Vessel. Id of the address can be found using the customer Address endpoint.
+      validFor:
+        $ref: "#/definitions/PatchValidFor"
+      status:
+        type: string
+        description: The status of the site.
+        enum:
+          - Active
+      folderId:
+        type: string
+        description: folder Id
+      customerSiteRef:
+        type: string
+        description: Customer Site Referance
+  PatchSiteContact:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Id of the contact. Id of the contact can be found using the customer Contact endpoint.
+  PostSite:
+    type: object
+    required:
+      - name
+      - category
+      - categoryDetails
+      - folderId
+      - status
+    properties:
+      name:
+        type: string
+        description: Site Name.
+      category:
+        type: string
+        description: Site category name.
+        enum:
+          - Land
+          - Sea
+          - Air
+      categoryDetails:
+        $ref: "#/definitions/SiteLocation"
+      folderId:
+        type: string
+        description: The parent folder id. This id can be found using the customer folder endpoint.
+      validFor:
+        $ref: "#/definitions/ValidFor"
+      contact:
+        type: array
+        description: Array of site contact id.
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              description: Id of the contact.
+      emergencyAddressId:
+        type: string
+        description: Id of the emergency Address. The Address object will be in the address array. Only for Vessel. Id of the address can be found using the customer Address endpoint.
+      addresId:
+        type: string
+        description: Primary address id. Id of the address can be found using the customer Address endpoint. Id of the address can be found using the customer Address endpoint.
+      emergencyContactId:
+        type: string
+        description: Id of the emergency site contact. Id of the contact can be found using the customer Contact endpoint.
+      status:
+        type: string
+        description: The status of the site.
+        enum:
+          - Active
+          - Draft
+      customerSiteRef:
+        type: string
+        description: Customer Site Referance
+
+  QuerySite:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Site Id. Not applicable on register customer site.
+      name:
+        type: string
+        description: Site Name.
+      category:
+        type: string
+        description: Site category name.
+        enum:
+          - Land
+          - Sea
+          - Air
+      categoryDetails:
+        $ref: "#/definitions/PatchSiteLocation"
+      folderId:
+        type: string
+        description: The parent folder id.
+      folderName:
+        type: string
+        description: The parent folder name.
+      customerId:
+        type: string
+        description: The customer id.
+      status:
+        type: string
+        description: Status of the site.
+      emergencyAddressId:
+        type: string
+        description: Id of the emergency Address. Only for Vessel. To retrieve the address information, please use the customer Address endpoint.
+      emergencyContactId:
+        type: string
+        description: Id of the emergency site contact. To retrieve the contact information, please use the customer Contact endpoint.
+      addressId:
+        type: string
+        description: Country of registration.
+      validFor:
+        $ref: "#/definitions/ValidFor"
+      contact:
+        type: array
+        description: Array of site contact id.
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              description: Id of the contact.
+            customerSiteRef:
+              type: string
+              description: Customer Site Referance
+  RetrieveSite:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Site Id. Not applicable on register customer site.
+      name:
+        type: string
+        description: Site Name.
+      category:
+        type: string
+        description: Site category name.
+        enum:
+          - Land
+          - Sea
+          - Air
+      categoryDetails:
+        $ref: "#/definitions/PatchSiteLocation"
+      serviceCount:
+        type: string
+        description: Number of service.
+      hasActiveSuspendedService:
+        type: boolean
+        description: Flag which determines whether the site has active suspended service.
+      folderId:
+        type: string
+        description: The parent folder id.
+      folderName:
+        type: string
+        description: The parent folder name.
+      customer:
+        $ref: "#/definitions/RetrieveSiteCustomer"
+      status:
+        type: string
+        description: Status of the site.
+        enum:
+          - Active
+          - Draft
+          - Inactive
+      generalDetails:
+        $ref: "#/definitions/RetrieveSiteGeneralDetails"
+      contact:
+        type: array
+        description: Array of site contact.
+        items:
+          $ref: "#/definitions/RetrieveSiteContact"
+      address:
+        type: array
+        description: Array of address.
+        items:
+          $ref: "#/definitions/RetrieveSiteAddress"
+      emergencyAddressId:
+        type: string
+        description: Id of the emergency Address. Only for Vessel. To retrieve the address information, please use the customer Address endpoint.
+      emergencyContactId:
+        type: string
+        description: Id of the emergency site contact. To retrieve the contact information, please use the customer Contact endpoint.
+      customerSiteRef:
+        type: string
+        description: Customer Site Referance
+  RetrieveSiteGeneralDetails:
+    type: object
+    properties:
+      createdDate:
+        type: string
+        description: Created Date.
+        format: date-time
+        example: "2018-08-10T11:44:00Z"
+      lastModifiedDate:
+        type: string
+        description: Last modified Date.
+        format: date-time
+        example: "2018-08-10T11:44:00Z"
+      validFor:
+        $ref: "#/definitions/ValidFor"
+  RetrieveSiteCustomer:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      contact:
+        type: array
+        items:
+          $ref: "#/definitions/RetrieveSiteContact"
+      address:
+        type: array
+        items:
+          $ref: "#/definitions/RetrieveSiteAddress"
+      primaryContactId:
+        type: string
+      primaryAddressId:
+        type: string
+  RetrieveSiteContact:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      surname:
+        type: string
+      medium:
+        type: array
+        items:
+          type: object
+          properties:
+            type:
+              type: string
+            value:
+              type: string
+  RetrieveSiteAddress:
+    type: object
+    properties:
+      id:
+        type: string
+      line1:
+        type: string
+      line2:
+        type: string
+      line3:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      postalCode:
+        type: string
+  SiteDetails:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Site Id.
+      name:
+        type: string
+        description: Site Name.
+      type:
+        type: string
+        description: Site Type.
+      subType:
+        type: string
+        description: Site sub type.
+      imoNumber:
+        type: string
+        description: IMO Number.
+      mmsi:
+        type: string
+        description: MMSI.
+      tailNumber:
+        type: string
+        description: Tail Number.
+      icaoNumber:
+        type: string
+        description: ICAO Number.
+      callSign:
+        type: string
+        description: Call sign.
+      country:
+        type: string
+        description: Country.
+      address:
+        type: string
+        description: Address ID.
+      contact:
+        type: array
+        description: Array of contact reference.
+        items:
+          $ref: "#/definitions/QueryContact"
+      systemSiteIds:
+        $ref: "#/definitions/SystemSiteIds"
+      emergencyContact:
+        type: string
+        description: Emergency Contact Id.
+      emergencyAddress:
+        type: string
+        description: Emergency Address Id.
+      generalDetails:
+        $ref: "#/definitions/GeneralDetails"
+      status:
+        type: string
+        description: Site Status.
+      grossTonnage:
+        type: integer
+        description: Gross tonnage.
+      yearOfManufacture:
+        type: string
+        description: Year of manufacture.
+      homePort:
+        type: string
+        description: Home Port.
+      portOfRegistry:
+        type: string
+        description: Port of registry.
+      personsOnBoard:
+        type: integer
+        description: Number of persons on board.
+      seaGoing:
+        type: string
+        description: Sea going.
+      selfPropelled:
+        type: string
+        description: Self-propelled.
+      vesselMarket:
+        type: string
+        description: Vessel Market.
+      vesselSector:
+        type: string
+        description: Vessel Sector.
+      airlineClass:
+        type: string
+        description: Airline Class.
+      aircraftModel:
+        type: string
+        description: Aircraft Model.
+      airlineName:
+        type: string
+        description: Airline Name.
+  SOAProduct:
+    type: object
+    properties:
+      name:
+        type: string
+  SubscriptionPlan:
+    type: object
+    properties:
+      id:
+        type: string
+  SubsPlan:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+  SystemSiteIds:
+    type: object
+    properties:
+      sep:
+        type: integer
+  ValidFor:
+    type: object
+    properties:
+      startDateTime:
+        type: string
+        description: Date of the site creation.
+        format: date-time
+        example: "2018-08-10T11:44:00Z"
+      endDateTime:
+        type: string
+        description: End date of the site.
+        format: date-time
+        example: "2028-07-10T11:44:00Z"
+  PatchValidFor:
+    type: object
+    properties:
+      startDateTime:
+        type: string
+        description: start date of the site.
+        format: date-time
+        example: "2028-07-10T11:44:00Z"
+      endDateTime:
+        type: string
+        description: End date of the site.
+        format: date-time
+        example: "2028-07-10T11:44:00Z"
+  CreateAndModifyContactValidFor:
+    type: object
+    properties:
+      endDateTime:
+        type: string
+        description: End date of service.
+        format: date-time
+        example: "2028-07-10T11:44:00Z"
+  Vessel:
+    type: object
+    required:
+      - market
+    description: Represents the vessel details. Vessel, Aircraft and Land are mutually exclusive.
+    properties:
+      yearOfManufacture:
+        type: string
+        description: Year of manufacture. Format is YYYY.
+      imoNumber:
+        type: string
+        description: IMO number. International Maritime Organization Number.
+      mmsiId:
+        type: string
+        description: MMSI id. Maritime Mobile Service Identity Number.
+      callSign:
+        type: string
+        description: Call Sign.
+      grossTonnage:
+        type: integer
+        description: Vessel gross tonnage.
+      homePort:
+        type: string
+        description: Vessel home port.
+      registeredPort:
+        type: string
+        description: Vessel registered port.
+      personsOnBoard:
+        type: integer
+        description: Number of persons on board.
+      seagoing:
+        type: string
+        description: Sea going.
+        enum:
+          - Y
+          - N
+      selfPropelled:
+        type: string
+        description: Self-propelled.
+        enum:
+          - Y
+          - N
+      market:
+        type: string
+        description: Market name.
+      sector:
+        type: string
+        description: Sector name.
+      countryOfRegistration:
+        type: string
+        description: Registration Country. Data to pass will be a 2-char value. This can be obtained with the Generic Reference Data API.
+  PatchVessel:
+    type: object
+    description: Represents the vessel details. Vessel, Aircraft and Land are mutually exclusive.
+    properties:
+      yearOfManufacture:
+        type: string
+        description: Year of manufacture. Format is YYYY.
+      imoNumber:
+        type: string
+        description: IMO number. International Maritime Organization Number.
+      mmsiId:
+        type: string
+        description: MMSI id. Maritime Mobile Service Identity Number.
+      callSign:
+        type: string
+        description: Call Sign.
+      grossTonnage:
+        type: integer
+        description: Vessel gross tonnage.
+      homePort:
+        type: string
+        description: Vessel home port.
+      registeredPort:
+        type: string
+        description: Vessel registered port.
+      personsOnBoard:
+        type: integer
+        description: Number of persons on board.
+      seagoing:
+        type: string
+        description: Sea going.
+        enum:
+          - Y
+          - N
+      selfPropelled:
+        type: string
+        description: Self-propelled.
+        enum:
+          - Y
+          - N
+      market:
+        type: string
+        description: Market name.
+      sector:
+        type: string
+        description: Sector name.
+      countryOfRegistration:
+        type: string
+        description: Registration Country. Data to pass will be a 2-char value. This can be obtained with the Generic Reference Data API.
+  Error:
+    type: object
+    properties:
+      error:
+        $ref: "#/definitions/ErrorObj"
+  ErrorObj:
+    type: object
+    properties:
+      errorCode:
+        type: string
+      description:
+        type: string
+  AddressPostResponse:
+    type: object
+    properties:
+      status:
+        type: string
+        description: HTTP Status Code.
+      message:
+        type: string
+        description: HTTP Status Message.
+      created:
+        type: integer
+        description: 0 or 1.
+      by:
+        type: string
+        description: Email Address of User.
+      "on":
+        type: string
+        description: Timestamp of creation.
+        example: 2018-07-10T11:44:00Z
+      addressId:
+        type: string
+        description: Id reference of the created address.
+  ContactPostResponse:
+    type: object
+    properties:
+      status:
+        type: string
+        description: HTTP Status Code.
+      message:
+        type: string
+        description: HTTP Status Message.
+      created:
+        type: integer
+        description: 0 or 1.
+      by:
+        type: string
+        description: Email Address of User.
+      "on":
+        type: string
+        description: Timestamp of creation.
+        example: "2018-07-10T11:44:00Z"
+      contactId:
+        type: string
+        description: Id reference of the created contact.
+  MediumPostResponse:
+    type: object
+    properties:
+      status:
+        type: string
+        description: HTTP Status Code
+      message:
+        type: string
+        description: HTTP Status Message
+      created:
+        type: integer
+        description: 0 or 1.
+      by:
+        type: string
+        description: Email Address of User
+      "on":
+        type: string
+        description: Timestamp of creation
+        example: "2018-07-10T11:44:00Z"
+      mediumId:
+        type: integer
+        description: Id reference of the created medium
+  PatchResponse:
+    type: object
+    properties:
+      status:
+        type: string
+        description: HTTP Status Code.
+      message:
+        type: string
+        description: HTTP Status Message.
+      updated:
+        type: integer
+        description: 0 or 1.
+      by:
+        type: string
+        description: Email Address of User.
+      "on":
+        type: string
+        description: Timestamp of creation
+        example: 2018-07-10T11:44:00Z
+  EligibleSiteFoldersOutput:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Id of the folder.
+      name:
+        type: string
+        description: Folder name.
+      type:
+        type: string
+        description: Type of the folder.
+        enum:
+          - Site Folder
+          - Site Sub Folder
+      level:
+        type: integer
+        description: Level of the folder.
+      parentFolderId:
+        type: string
+        description: The folder parent folder id.
+      customerId:
+        type: string
+        description: Customer id.
+      folder:
+        type: array
+        description: Array of child folder object.
+        items:
+          $ref: "#/definitions/EligibleSiteFoldersOutput"
+responses:
+  BadRequest:
+    description: Bad Request
+    schema:
+      $ref: "#/definitions/Error"
+  Unauthorized:
+    description: Unauthorized
+    schema:
+      $ref: "#/definitions/Error"
+  NotFound:
+    description: The specified resource was not found
+    schema:
+      $ref: "#/definitions/Error"
+  ServerError:
+    description: Server Error
+    schema:
+      $ref: "#/definitions/Error"

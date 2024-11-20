@@ -1,0 +1,229 @@
+openapi: 3.0.1
+info:
+  title: Contract Management
+  description: Contract Management
+  version: VAR-O2B.22.13
+servers:
+  - url: http://inmarsat-sandbox.apigee.net/v1/contractManagement
+  - url: https://inmarsat-sandbox.apigee.net/v1/contractManagement
+paths:
+  /contract/{customerId}:
+    post:
+      parameters:
+        - name: customerId
+          in: path
+          description: Customer id.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Address object.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateContract"
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Contract"
+    get:
+      tags:
+        - contract
+      summary: Returns the contract details
+      description: abc
+      operationId: getContract
+      parameters:
+        - name: customerId
+          in: path
+          description: Customer id.
+          required: true
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Provides the ability to skip a certain number of records.
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description:
+            "Provides the ability to specify the number of records being\
+            \ displayed. If not provided, then a default of 10 records will be displayed."
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Complete
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Contract"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    CreateContract:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          description: Type of contract.
+    Contract:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of the contract.
+        type:
+          type: string
+          description: Type of contract.
+        sellingLegalEntityId:
+          type: string
+          description: Selling legal entity id.
+        sellingLegalEntityName:
+          type: string
+          description: Selling legal entity name.
+        validFor:
+          $ref: "#/components/schemas/ValidFor"
+        soaProduct:
+          type: array
+          items:
+            $ref: "#/components/schemas/ContractSOAProduct"
+        subscriptionPlan:
+          type: array
+          items:
+            $ref: "#/components/schemas/SubscriptionPlan"
+    ContractSOAProduct:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the scope of appointment product.
+        familyName:
+          type: string
+          description: Family name of the product.
+        marketSector:
+          type: array
+          items:
+            $ref: "#/components/schemas/MarketSector"
+        territory:
+          type: array
+          items:
+            $ref: "#/components/schemas/Territory"
+    MarketSector:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the market sector.
+          enum:
+            - Business Aviation
+            - Commercial Air Transport
+            - Commercial Maritime
+            - Enterprise Energy
+            - Enterprise
+            - General Aviation
+            - Government Aeronautical
+            - Government Land
+            - Government Maritime
+            - Government Maritime Sector (USG)
+            - Government Aeronautical Sector (USG)
+            - Government
+            - Government Land Sector (USG)
+            - Government Sector (USG)
+    Territory:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the territory.
+          enum:
+            - Worldwide
+            - Worldwide Excl. USA
+            - USA
+            - Other
+    SubscriptionPlan:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of the subscription plan.
+        name:
+          type: string
+          description: Name of the subscription plan.
+    ValidFor:
+      type: object
+      properties:
+        startDateTime:
+          type: string
+          description: Effective start date of the contract.
+          format: date-time
+          example: 2018-08-10T11:44:00Z
+        endDateTime:
+          type: string
+          description: End date of the contract.
+          format: date-time
+          example: 2028-07-10T11:44:00Z
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        description:
+          type: string
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    ServerError:
+      description: Server Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+x-original-swagger-version: "2.0"

@@ -1,0 +1,7 @@
+{
+  "code": 502,
+  "response": {
+    "code": "Service unavailable",
+    "message": "Please try later"
+  }
+}

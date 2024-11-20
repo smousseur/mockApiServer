@@ -1,0 +1,374 @@
+{
+  "code": 200,
+  "response": [
+    {
+      "shippingDetails": [
+        {
+          "address": "8247 Meadow Way",
+          "contact": "Maya_Beier25@yahoo.com"
+        },
+        {
+          "address": "6967 Welch Mountains",
+          "contact": "Anahi_Waelchi64@yahoo.com"
+        },
+        {
+          "contact": "Randy_Wiza@gmail.com"
+        },
+        {
+          "address": "68679 Deangelo Branch",
+          "contact": "Sally56@hotmail.com"
+        },
+        {
+          "address": "1968 Dena Gateway"
+        },
+        {
+          "address": "3127 Luisa Spurs",
+          "contact": "Jodie_Hane@gmail.com"
+        },
+        {
+          "contact": "Santino_Konopelski@gmail.com"
+        },
+        {
+          "address": "233 Kuhn Crescent",
+          "contact": "Michele.Jacobson@hotmail.com"
+        },
+        {
+          "address": "6761 Pollich Manors",
+          "contact": "Kobe95@hotmail.com"
+        },
+        {
+          "address": "1443 North Lane"
+        }
+      ]
+    },
+    {
+      "name": "Personal Loan Account",
+      "paymentMethod": "payment"
+    },
+    {
+      "accountNumber": "27682951",
+      "name": "Home Loan Account",
+      "invoicePreference": "Lorem",
+      "paymentMethod": "invoice",
+      "paymentTerms": "withdrawal transaction at Kovacek, Stehr and Heller using card ending with ***(...7877) for BWP 730.13 in account ***93984989",
+      "shippingDetails": [
+        {
+          "address": "594 Elm Street"
+        },
+        {
+          "address": "877 Zechariah Rest",
+          "contact": "Adela.Berge@yahoo.com"
+        },
+        {
+          "contact": "Kara.Wisozk93@yahoo.com"
+        },
+        {
+          "address": "9794 Audrey Forge",
+          "contact": "Brandyn_Kihn-Walter92@gmail.com"
+        },
+        {
+          "contact": "Etha_Larkin91@yahoo.com"
+        },
+        {
+          "address": "31084 Shanon Vista",
+          "contact": "Lamar.Breitenberg-Cummings38@hotmail.com"
+        },
+        {
+          "address": "465 Sheila Island",
+          "contact": "Willy_Nienow@hotmail.com"
+        },
+        {
+          "address": "749 N Poplar Street",
+          "contact": "Anabel.Wiza16@hotmail.com"
+        },
+        {
+          "address": "3845 Gleichner View",
+          "contact": "Dallin79@hotmail.com"
+        },
+        {
+          "address": "28247 Russell Street",
+          "contact": "Shemar.Champlin96@gmail.com"
+        },
+        {
+          "contact": "Estefania83@hotmail.com"
+        }
+      ]
+    },
+    {
+      "accountNumber": "31325826",
+      "name": "Investment Account",
+      "invoicePreference": "in fugiat et exercitation non",
+      "paymentMethod": "withdrawal",
+      "paymentTerms": "withdrawal transaction at Fadel - Sipes using card ending with ***(...9165) for BND 271.92 in account ***45130263",
+      "shippingDetails": [
+        {
+          "contact": "Cassandra_Wiegand-Gleichner@gmail.com"
+        },
+        {
+          "address": "66219 Kilback Burg",
+          "contact": "Colleen_Hodkiewicz8@hotmail.com"
+        },
+        {
+          "address": "67169 Marks Neck",
+          "contact": "Lilian27@hotmail.com"
+        },
+        {
+          "contact": "Eileen_Simonis3@gmail.com"
+        },
+        {
+          "address": "5512 Stamm Roads",
+          "contact": "Ignacio.Borer@yahoo.com"
+        },
+        {
+          "address": "8028 Louisa Meadow",
+          "contact": "Johan.Larson@hotmail.com"
+        },
+        {
+          "address": "7083 S 10th Street"
+        },
+        {
+          "address": "447 S High Street",
+          "contact": "Dorthy97@yahoo.com"
+        },
+        {
+          "address": "70041 Noble Haven",
+          "contact": "Braden.Cronin12@hotmail.com"
+        },
+        {
+          "contact": "Jocelyn.Willms@yahoo.com"
+        },
+        {
+          "address": "6910 E High Street",
+          "contact": "Santiago10@hotmail.com"
+        }
+      ]
+    },
+    {
+      "accountNumber": "12596385",
+      "name": "Money Market Account",
+      "invoicePreference": "cillum",
+      "paymentMethod": "payment",
+      "paymentTerms": "payment transaction at Windler, Schamberger and Berge using card ending with ***(...6051) for IRR 509.24 in account ***70887122",
+      "shippingDetails": [
+        {
+          "address": "1474 Louie Garden",
+          "contact": "Jerry.Kerluke28@gmail.com"
+        },
+        {
+          "address": "28305 Hickory Street",
+          "contact": "Nicholas_Mayert3@hotmail.com"
+        },
+        {
+          "address": "2216 Adams Avenue",
+          "contact": "Gregoria68@yahoo.com"
+        },
+        {
+          "address": "2939 E Maple Street",
+          "contact": "Layne82@yahoo.com"
+        },
+        {
+          "address": "9748 Hillside"
+        },
+        {
+          "address": "18191 Rath Passage",
+          "contact": "Rachel1@yahoo.com"
+        },
+        {
+          "address": "81794 Barn Close",
+          "contact": "Sophie_McClure-Hudson12@hotmail.com"
+        },
+        {
+          "address": "5922 Reina Alley",
+          "contact": "Giovanna.Bernhard-Moore@yahoo.com"
+        },
+        {
+          "address": "20017 Birch Avenue",
+          "contact": "Noah_Torp@hotmail.com"
+        }
+      ]
+    },
+    {
+      "accountNumber": "07594445",
+      "name": "Checking Account",
+      "invoicePreference": "magna adipisicing proident",
+      "paymentMethod": "invoice",
+      "paymentTerms": "invoice transaction at Homenick, Douglas and Altenwerth using card ending with ***(...6751) for KPW 704.42 in account ***34617475",
+      "shippingDetails": [
+        {
+          "address": "60209 Ernest Freeway",
+          "contact": "Sherwood.Green14@hotmail.com"
+        },
+        {
+          "address": "6576 Alexandra Road",
+          "contact": "Janet_Klocko@yahoo.com"
+        },
+        {
+          "address": "695 Langosh Hills",
+          "contact": "Aliza.Dickens@hotmail.com"
+        },
+        {
+          "address": "7334 Pagac Hills"
+        },
+        {
+          "address": "26555 Lavada Mountain",
+          "contact": "Madelyn88@gmail.com"
+        },
+        {
+          "contact": "Josue.Koch@hotmail.com"
+        },
+        {
+          "address": "54697 Moen Path",
+          "contact": "Judson_Rosenbaum@gmail.com"
+        },
+        {
+          "address": "185 Halvorson Coves",
+          "contact": "Gavin.Glover5@hotmail.com"
+        }
+      ]
+    },
+    {
+      "name": "Money Market Account"
+    },
+    {
+      "accountNumber": "82359886",
+      "name": "Checking Account",
+      "invoicePreference": "sint",
+      "paymentMethod": "invoice",
+      "paymentTerms": "invoice transaction at McDermott, Thiel and Little using card ending with ***(...7440) for TOP 31.07 in account ***63289994",
+      "shippingDetails": [
+        {
+          "address": "3307 Rosendo Forge",
+          "contact": "Gail60@yahoo.com"
+        },
+        {
+          "address": "6455 Schaefer Oval",
+          "contact": "Brian47@yahoo.com"
+        },
+        {
+          "address": "523 The Mews",
+          "contact": "Vance_Powlowski15@yahoo.com"
+        },
+        {
+          "address": "417 Rohan Shores",
+          "contact": "Aurelio_Rohan82@hotmail.com"
+        },
+        {
+          "contact": "Sigurd.Boyer10@yahoo.com"
+        },
+        {
+          "contact": "Mohammad_Rau@hotmail.com"
+        },
+        {
+          "address": "926 Robyn Route"
+        },
+        {
+          "address": "236 Raina Rapids",
+          "contact": "Lucile_Cormier@yahoo.com"
+        },
+        {
+          "address": "996 Veum Extension",
+          "contact": "Jaylon.Strosin6@gmail.com"
+        },
+        {
+          "address": "644 Windmill Close"
+        },
+        {
+          "address": "87474 Schultz Creek",
+          "contact": "Kody.Rowe21@yahoo.com"
+        }
+      ]
+    },
+    {
+      "invoicePreference": "ut",
+      "shippingDetails": [
+        {
+          "address": "8481 Santa Hollow"
+        },
+        {
+          "address": "472 Bramble Close",
+          "contact": "Nicolas_Roberts@yahoo.com"
+        },
+        {
+          "address": "7542 Cremin Crossing",
+          "contact": "Rodrigo_Mueller49@hotmail.com"
+        },
+        {
+          "address": "722 Gutmann Trafficway"
+        },
+        {
+          "address": "937 Lincoln Highway",
+          "contact": "Rory_Gutkowski-Collins@yahoo.com"
+        },
+        {
+          "address": "507 Trantow Alley",
+          "contact": "Princess.Adams89@gmail.com"
+        },
+        {
+          "address": "28740 Marisa Fields",
+          "contact": "Lillie_Flatley@gmail.com"
+        },
+        {
+          "address": "9451 Hazel Close",
+          "contact": "Petra22@gmail.com"
+        },
+        {
+          "address": "97815 Anastacio Summit",
+          "contact": "Lewis.Bergnaum@gmail.com"
+        }
+      ]
+    },
+    {
+      "name": "Savings Account",
+      "invoicePreference": "non elit sint labore proident",
+      "paymentMethod": "invoice"
+    },
+    {
+      "accountNumber": "42774411",
+      "name": "Money Market Account",
+      "invoicePreference": "sit ut est eu",
+      "paymentMethod": "invoice",
+      "paymentTerms": "withdrawal transaction at Hammes, Wilderman and Monahan using card ending with ***(...4493) for ISK 915.70 in account ***54350525",
+      "shippingDetails": [
+        {
+          "address": "841 Manor Close",
+          "contact": "Jarret87@gmail.com"
+        },
+        {
+          "contact": "Kameron.Fritsch7@yahoo.com"
+        },
+        {
+          "address": "64380 Monroe Street",
+          "contact": "Dawson.Morar87@gmail.com"
+        },
+        {
+          "address": "30622 Tennyson Road",
+          "contact": "Conor.Mohr84@hotmail.com"
+        },
+        {
+          "address": "3539 Moises Canyon",
+          "contact": "Brannon85@gmail.com"
+        },
+        {
+          "address": "73922 Orchard Drive",
+          "contact": "Christopher10@hotmail.com"
+        },
+        {
+          "address": "16716 Shields Fork",
+          "contact": "Chase.Nienow65@hotmail.com"
+        },
+        {
+          "address": "91595 Old Military Road",
+          "contact": "Merl_Kautzer@hotmail.com"
+        },
+        {
+          "address": "69595 W South Street",
+          "contact": "Janae_Herzog@hotmail.com"
+        },
+        {
+          "address": "734 Brekke Burgs",
+          "contact": "Lavonne70@hotmail.com"
+        }
+      ]
+    }
+  ]
+}
