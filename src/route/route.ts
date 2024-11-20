@@ -70,7 +70,7 @@ export class Route {
 
     generateResponse = (faker: typeof JSONSchemaFaker, request: Request, response: Response) : void => {
         const defaultPath = path.join(constants.getRouteDirectory(this.rootPath, constants.DEFAULT_DIRECTORY), 
-            this.operation + "-" + this.getDefaultFilename(this.endpoint));
+            this.getRouteIdentifier() + "-" + this.operation + "-" + this.getDefaultFilename(this.endpoint));
         if (fs.existsSync(defaultPath)) {
             fs.readFile(defaultPath, (err, content) => {
                 if (err) {
